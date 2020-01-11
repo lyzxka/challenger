@@ -1,12 +1,10 @@
+import 'dart:async';
 import 'package:challenger/pages/Ad.dart';
-import 'package:challenger/pages/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // 展示广告页
-  bool showAd=false;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -23,20 +21,9 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        brightness: Brightness.light,
       ),
-      home: Stack(
-        children: <Widget>[
-          // 控制child展示  true为不展示
-          Offstage(
-            child: Home(),
-            offstage: !showAd,
-          ),
-          Offstage(
-            child: Ad(),
-            offstage: showAd,
-          ),
-        ],
-      ),
+      home: Ad(),
     );
   }
 }
