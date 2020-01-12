@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// author：leader
+/// author：zzxka
 /// date：2020-01-11 16:02
-/// description: 
+/// description: 广告页文字行
 class AdLabel extends StatelessWidget {
   TextStyle labelTextStyle=TextStyle(color: Colors.grey,fontSize: 18,decoration: TextDecoration.none);
   String word;

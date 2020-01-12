@@ -4,7 +4,7 @@ import 'package:challenger/config/BaseConfig.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'AppIndex.dart';
 
 class Ad extends StatefulWidget{
   AdState createState()=> AdState();
@@ -33,7 +33,7 @@ class AdState extends State<Ad>{
       children: <Widget>[
         // 控制child展示  true为不展示
         Offstage(
-          child: Home(),
+          child: AppIndex(),
           offstage: showAd,
         ),
         Offstage(
