@@ -1,5 +1,6 @@
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/Ad.dart';
+import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
 import 'package:flutter/material.dart';
 /// 首页
@@ -15,7 +16,7 @@ class AppIndexState extends State<AppIndex>{
   void initState() {
     super.initState();
     pages=[
-      Text("首页"),
+      Home(),
       Text("比赛"),
       Text("志友"),
       Text("知识"),
