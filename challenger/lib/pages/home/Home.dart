@@ -1,3 +1,5 @@
+import 'package:challenger/component/MatchItem.dart';
+import 'package:challenger/component/SearchFriendsItem.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/home/Navigation.dart';
 import 'package:flutter/material.dart';
@@ -27,181 +29,124 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size screenSize=MediaQuery.of(context).size;
-    return Container(
-      color: Color.fromRGBO(0, 0, 0, 0.1),
-      child: Column(
-        children: <Widget>[
-          // 轮播图
-          Container(
-            padding: EdgeInsets.only(top: 4,left: 10,right: 10),
-            constraints: BoxConstraints.tightFor(height: 140),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10)
-            ),
-            child: Swiper(
-              itemCount: _swiperImg.length,
-              itemBuilder: _itemBuilder,
-              control: new SwiperControl(
-                  size: 18
-              ),
-              autoplay: true,
-              autoplayDelay: 4000,
-              scrollDirection: Axis.horizontal,
-              pagination: new SwiperPagination(
-                  builder: DotSwiperPaginationBuilder(
-                      color: Colors.black54,
-                      activeColor: Colors.white,
-                      size: 4,
-                      activeSize: 5
-                  )
-              ),
-              onTap: (index)=>print("当前页面${index+1}"),
-            ),
-          ),
-          // 精选导航
-          Navigation(),
-          // 比赛资讯
-          Container(
-            color: Colors.white,
-            height: 190,
-            padding: EdgeInsets.only(left: 10,right: 10,top: 7),
-            margin: EdgeInsets.only(top: 5),
-            alignment: AlignmentDirectional.centerStart,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text("最新资讯"),
-                      ),
-                      Listener(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.max,
-                          children:<Widget>[
-                            Text("更多 >>",),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          color: Color.fromRGBO(0, 0, 0, 0.1),
+          child:ListView(
+            children: <Widget>[
+              // 轮播图
+              Container(
+                padding: EdgeInsets.only(top: 4,left: 10,right: 10),
+                constraints: BoxConstraints.tightFor(height: 140),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10)
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 25,),
-                  alignment: AlignmentDirectional.centerStart,
-                  child: ListView.separated(
-                    itemCount: 3,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("齐鲁软件设计大赛",style: TextStyle(fontSize: 18),),
-                                Text("2020-01-16",style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
-                              ],
-                            ),
-                          ),
-                          Icon(Icons.chevron_right,color: Color.fromRGBO(0, 0, 0, .5),size: 20,)
-                        ],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(color: Color.fromRGBO(0, 0, 0, 0.5),);
-                    },
+                child: Swiper(
+                  itemCount: _swiperImg.length,
+                  itemBuilder: _itemBuilder,
+                  control: new SwiperControl(
+                      size: 18
                   ),
-                )
-              ],
-            ),
-          ),
-          // 组队信息
-          Container(
-            color: Colors.white,
-            width: screenSize.width,
-            height: 200,
-            padding: EdgeInsets.only(left: 10,right: 10,top: 7),
-            margin: EdgeInsets.only(top: 5),
-            alignment: AlignmentDirectional.centerStart,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Expanded(
-                        child: Text("志友招募"),
-                      ),
-                      Listener(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.max,
-                          children:<Widget>[
-                            Text("更多 >>",),
-                          ],
-                        ),
-                      ),
-                    ],
+                  autoplay: true,
+                  autoplayDelay: 4000,
+                  scrollDirection: Axis.horizontal,
+                  pagination: new SwiperPagination(
+                      builder: DotSwiperPaginationBuilder(
+                          color: Colors.black54,
+                          activeColor: Colors.white,
+                          size: 4,
+                          activeSize: 5
+                      )
                   ),
+                  onTap: (index)=>print("当前页面${index+1}"),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 25,),
-                  alignment: AlignmentDirectional.centerStart,
-                  child: ListView.separated(
-                    itemCount: 3,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.only(right: 10),
-                                child: ClipOval(
-                                  child: Image.asset(Constant.ASSETS_IMG+"default_head_icon.jpg",width: 40,),
-                                ),
-                              ),
-                              Text("胖的走不动了",style: TextStyle(fontSize: 11),maxLines: 1,overflow: TextOverflow.clip,)
+              ),
+              // 精选导航
+              Navigation(),
+              // 比赛资讯
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.only(left: 10,right: 10,top: 7),
+                margin: EdgeInsets.only(top: 5),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Expanded(
+                          child: Text("最新资讯"),
+                        ),
+                        Listener(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.max,
+                            children:<Widget>[
+                              Text("更多 >>",),
                             ],
                           ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text("齐鲁软件设计大赛招募啦，我们需要一名后台开发我们需要一名后台开发",style: TextStyle(fontSize: 16,),maxLines: 2,overflow: TextOverflow.ellipsis,),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 4,left: 10),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text("齐鲁软件设计大赛",style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
-                                      ),
-                                      Text("2020-01-16",style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                        ),
+                      ],
+                    ),
+                    MatchItem(itemId: 1,title: "齐鲁软件设计大赛",date:"2020-01-16"),
+                    MatchItem(itemId: 2,title: "齐鲁软件设计大赛",date:"2020-01-16"),
+                    MatchItem(itemId: 3,title: "齐鲁软件设计大赛",date:"2020-01-16"),
+                  ],
+                ),
+              ),
+              // 组队信息
+              Container(
+                color: Colors.white,
+                width: screenSize.width,
+                padding: EdgeInsets.only(left: 10,right: 10,top: 7),
+                margin: EdgeInsets.only(top: 5),
+                alignment: AlignmentDirectional.centerStart,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Expanded(
+                          child: Text("志友招募"),
+                        ),
+                        Listener(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.max,
+                            children:<Widget>[
+                              Text("更多 >>",),
+                            ],
                           ),
-                          Icon(Icons.chevron_right,color: Color.fromRGBO(0, 0, 0, .5),size: 20,)
-                        ],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(color: Color.fromRGBO(0, 0, 0, 0.5),);
-                    },
-                  ),
-                )
-              ],
-            ),
+                        ),
+                      ],
+                    ),
+                    SearchFriendsItem(),
+                    SearchFriendsItem(),
+                    SearchFriendsItem(),
+                    SearchFriendsItem(),
+                  ],
+                ),
+              ),
+              // 底部
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  gradient: new LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(240, 239, 239,0),
+                        Colors.white,
+                      ]),
+                ),
+                alignment: AlignmentDirectional.center,
+                child: Text("已经到底了",style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.3)),),
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+
+      ],
     );
   }
   // 轮播
