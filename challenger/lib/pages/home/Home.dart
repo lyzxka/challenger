@@ -1,3 +1,4 @@
+import 'package:challenger/component/BottomLabel.dart';
 import 'package:challenger/component/MatchItem.dart';
 import 'package:challenger/component/SearchFriendsItem.dart';
 import 'package:challenger/constant/Constant.dart';
@@ -128,20 +129,7 @@ class HomeState extends State<Home> {
                 ),
               ),
               // 底部
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  gradient: new LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(240, 239, 239,0),
-                        Colors.white,
-                      ]),
-                ),
-                alignment: AlignmentDirectional.center,
-                child: Text("已经到底了",style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.3)),),
-              )
+              BottomLabel(),
             ],
           ),
         ),

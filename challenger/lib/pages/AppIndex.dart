@@ -2,6 +2,7 @@ import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/Ad.dart';
 import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
+import 'package:challenger/pages/match/Match.dart' as match;
 import 'package:flutter/material.dart';
 /// 首页
 class AppIndex extends StatefulWidget{
@@ -17,7 +18,7 @@ class AppIndexState extends State<AppIndex>{
     super.initState();
     pages=[
       Home(),
-      Text("比赛"),
+      match.Match(),
       Text("志友"),
       Text("知识"),
     ];
