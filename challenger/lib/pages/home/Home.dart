@@ -1,5 +1,5 @@
 import 'package:challenger/component/BottomLabel.dart';
-import 'package:challenger/component/MatchItem.dart';
+import 'package:challenger/component/HomeMatchItem.dart';
 import 'package:challenger/component/SearchFriendsItem.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/home/Navigation.dart';
@@ -89,9 +89,9 @@ class HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    MatchItem(itemId: 1,title: "齐鲁软件设计大赛",date:"2020-01-16"),
-                    MatchItem(itemId: 2,title: "齐鲁软件设计大赛",date:"2020-01-16"),
-                    MatchItem(itemId: 3,title: "齐鲁软件设计大赛",date:"2020-01-16"),
+                    HomeMatchItem(itemId: 1,title: "齐鲁软件设计大赛",date:"2020-01-16"),
+                    HomeMatchItem(itemId: 2,title: "齐鲁软件设计大赛",date:"2020-01-16"),
+                    HomeMatchItem(itemId: 3,title: "齐鲁软件设计大赛",date:"2020-01-16"),
                   ],
                 ),
               ),

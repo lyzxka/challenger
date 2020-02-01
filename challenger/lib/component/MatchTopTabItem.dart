@@ -38,7 +38,7 @@ class MatchTopTabItemState extends State<MatchTopTabItem> {
           ),
           constraints: BoxConstraints.tightFor(width: 50,height: 34),
           alignment: AlignmentDirectional.center,
-          child: Text(widget.title,style: TextStyle(color: Colors.grey),),
+          child: Text(widget.title,style: TextStyle(color: currentTopTab==widget.id?Colors.white:Colors.grey),),
         ),
       ),
       onTap: ((){
