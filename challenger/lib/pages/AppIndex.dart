@@ -1,5 +1,4 @@
 import 'package:challenger/constant/Constant.dart';
-import 'package:challenger/pages/Ad.dart';
 import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
 import 'package:challenger/pages/match/Match.dart' as match;

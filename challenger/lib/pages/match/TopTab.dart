@@ -35,16 +35,10 @@ class TopTabState extends State<TopTab> {
           Container(
             color: Colors.white,
             constraints: BoxConstraints.tightFor(height: 50),
-            child: RefreshIndicator(
-              onRefresh: _onRefresh,
-              child: ChangeNotifierProvider<MatchGlobal>(
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: titles,
-                  controller: controller,
-                ),
-                data: MatchGlobal(),
-              ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: titles,
+              controller: controller,
             ),
           ),
           // 顶部标题添加按钮
@@ -78,10 +72,5 @@ class TopTabState extends State<TopTab> {
           ),
         ]
     );
-  }
-  // 列表下拉刷新
-  Future _onRefresh(){
-    print("下拉刷新了");
-    return null;
   }
 }
