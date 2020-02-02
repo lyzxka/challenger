@@ -1,4 +1,5 @@
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/pages/group/SearchFriend.dart';
 import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
 import 'package:challenger/pages/match/Match.dart' as match;
@@ -18,7 +19,7 @@ class AppIndexState extends State<AppIndex>{
     pages=[
       Home(),
       match.Match(),
-      Text("志友"),
+      SearchFriend(),
       Text("知识"),
     ];
     barItems=[

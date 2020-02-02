@@ -6,7 +6,21 @@ import 'package:flutter/material.dart';
 /// description: 只有招募列表item
 class SearchFriendsItem extends StatelessWidget {
 
-
+  String userName;
+  String content;
+  int id;
+  String userIcon;
+  String matchName;
+  String date;
+  SearchFriendsItem({
+    Key key,
+    this.id,
+    this.userName,
+    this.userIcon,
+    this.content,
+    this.date,
+    this.matchName,
+  }):super(key:key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +38,13 @@ class SearchFriendsItem extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(right: 10),
                       child: ClipOval(
-                        child: Image.asset(Constant.ASSETS_IMG+"default_head_icon.jpg",width: 40,),
+                        child: Image.asset(userIcon,width: 40,),
                       ),
                     ),
                     Container(
                       width: 70,
                       alignment: AlignmentDirectional.center,
-                      child: Text("胖的走不动了吧",style: TextStyle(fontSize: 11),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                      child: Text(userName,style: TextStyle(fontSize: 11),maxLines: 1,overflow: TextOverflow.ellipsis,),
                     )
                   ],
                 ),
@@ -38,7 +52,7 @@ class SearchFriendsItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("齐鲁软件设计大赛招募啦，我们需要一名后台开发我们需要一名后台开发",style: TextStyle(fontSize: 16,),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                      Text(content,style: TextStyle(fontSize: 16,),maxLines: 2,overflow: TextOverflow.ellipsis,),
                       Padding(
                         padding: EdgeInsets.only(top: 4,left: 10),
                         child: Row(
@@ -46,9 +60,9 @@ class SearchFriendsItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Expanded(
-                              child: Text("齐鲁软件设计大赛",style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
+                              child: Text(matchName,style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
                             ),
-                            Text("2020-01-16",style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
+                            Text(date.toString(),style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
                           ],
                         ),
                       )

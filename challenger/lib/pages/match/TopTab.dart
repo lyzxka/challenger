@@ -1,7 +1,4 @@
 import 'package:challenger/component/MatchTopTabItem.dart';
-import 'package:challenger/model/MatchGlobal.dart';
-import 'package:challenger/utils/inherited/ShareDataWidget.dart';
-import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
 import 'package:flutter/material.dart';
 
 /// author：zzxka
