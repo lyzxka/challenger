@@ -11,13 +11,14 @@ class SearchFriend extends StatefulWidget {
 }
 
 class SearchFriendState extends State<SearchFriend> {
+  String city="请选择城市";
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-//        SearchFriendTopSearch(),
+        SearchFriendTopSearch(),
         Positioned(
-          top: 50,bottom: 0,
+          top: 52,bottom: 0,
           left: 0,right: 0,
           child: RefreshIndicator(
             color: Colors.blue,
