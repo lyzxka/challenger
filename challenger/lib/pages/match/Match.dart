@@ -1,3 +1,4 @@
+import 'package:challenger/component/BottomLabel.dart';
 import 'package:challenger/component/HomeMatchItem.dart';
 import 'package:challenger/component/MatchItem.dart';
 import 'package:challenger/constant/Constant.dart';
@@ -42,6 +43,7 @@ class MatchState extends State<Match> {
                       MatchItem(id:1,title: "齐鲁软件设计大赛",content: "这是山东省内的比赛",img: Constant.ASSETS_IMG+"default_head_icon.jpg",looks: "1111"),
                       MatchItem(id:1,title: "齐鲁软件设计大赛",content: "这是山东省内的比赛",img: Constant.ASSETS_IMG+"default_head_icon.jpg",looks: "1111"),
                       MatchItem(id:1,title: "齐鲁软件设计大赛",content: "这是山东省内的比赛",img: Constant.ASSETS_IMG+"default_head_icon.jpg",looks: "1111"),
+                      BottomLabel(),
                     ],
                   ),
                 )

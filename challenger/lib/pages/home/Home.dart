@@ -33,7 +33,6 @@ class HomeState extends State<Home> {
     return Stack(
       children: <Widget>[
         Container(
-          color: Color.fromRGBO(0, 0, 0, 0.1),
           child:ListView(
             children: <Widget>[
               // 轮播图

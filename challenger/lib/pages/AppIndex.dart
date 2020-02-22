@@ -4,6 +4,8 @@ import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
 import 'package:challenger/pages/match/Match.dart' as match;
 import 'package:flutter/material.dart';
+
+import 'knowledge/Knowledge.dart';
 /// 首页
 class AppIndex extends StatefulWidget{
   AppIndexState createState()=>AppIndexState();
@@ -20,7 +22,7 @@ class AppIndexState extends State<AppIndex>{
       Home(),
       match.Match(),
       SearchFriend(),
-      Text("知识"),
+      Knowledge(),
     ];
     barItems=[
       BottomNavigationBarItem(title:Text("首页"),icon: Icon(Icons.home)),

@@ -47,8 +47,20 @@ class MyDrawer extends StatelessWidget {
                     title: const Text('我的收藏'),
                   ),
                   ListTile(
+                    leading: const Icon(Icons.book),
+                    title: const Text('我的知识'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.hourglass_empty),
+                    title: const Text('我的比赛'),
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.group),
                     title: const Text('我的小队'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.history),
+                    title: const Text('浏览记录'),
                   ),
                   ListTile(
                     leading: const Icon(Icons.settings),
