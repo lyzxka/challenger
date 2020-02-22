@@ -76,7 +76,7 @@ class NavigationState extends State<Navigation> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 5),
-                  child: Text("赛事指导",style: navigationTextStyle,),
+                  child: Text("更多",style: navigationTextStyle,),
                 ),
               ],
             ),
