@@ -1,4 +1,5 @@
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/router.dart';
 import 'package:flutter/material.dart';
 
 /// author：zzxka
@@ -32,9 +33,16 @@ class MyDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    "zzxka",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    // 非文字区域可触发点击事件
+                    behavior: HitTestBehavior.opaque,
+                    onTap: ((){
+                      Router.pushNoParams(context, Router.login);
+                    }),
+                    child:Text(
+                      "zzxka",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:challenger/component/AdLabel.dart';
+import 'package:challenger/component/CountDownWidget.dart';
 import 'package:challenger/config/BaseConfig.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,8 @@ class AdState extends State<Ad>{
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: CountDownWidget(
+                        second: 5,
+                          prefixText: "跳过",
                           onCountDownFinishCallBack: (bool value){
                             if(value){
                               setState(() {
@@ -66,7 +69,7 @@ class AdState extends State<Ad>{
                           }
                       ),
                     ),
-                    onPointerDown: (PointerDownEvent) {
+                    onPointerDown: (PointerDownEvent e) {
                       setState(() {
                         showAd = false;
                       });
@@ -91,52 +94,5 @@ class AdState extends State<Ad>{
         ),
       ],
     );
-  }
-}
-
-class CountDownWidget extends StatefulWidget {
-  final onCountDownFinishCallBack;
-
-  CountDownWidget({Key key, @required this.onCountDownFinishCallBack})
-      : super(key: key);
-
-  @override
-  _CountDownWidgetState createState() => _CountDownWidgetState();
-}
-
-class _CountDownWidgetState extends State<CountDownWidget> {
-  var _seconds = 5;
-  Timer _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _startTimer();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '跳过 $_seconds',
-      style: BaseConfig.baseTestStyle,
-    );
-  }
-
-  /// 启动倒计时的计时器。
-  void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {});
-      if (_seconds <= 1) {
-        widget.onCountDownFinishCallBack(true);
-        _cancelTimer();
-        return;
-      }
-      _seconds--;
-    });
-  }
-
-  /// 取消倒计时的计时器。
-  void _cancelTimer() {
-    _timer?.cancel();
   }
 }
