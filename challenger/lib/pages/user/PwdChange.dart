@@ -135,17 +135,18 @@ class PwdChangeState extends State<PwdChange> {
                           ),
                           // 登录按钮
                           Padding(
-                            padding: const EdgeInsets.only(top: 38.0),
+                            padding: const EdgeInsets.only(top: 30.0),
                             child: Row(
                               children: <Widget>[
                                 Expanded(
                                   child: RaisedButton(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text("修改密码"),
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor,
-                                    textColor: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text("修改密码",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                                    color: Colors.blue,
+                                    textColor: Colors.white,
                                     onPressed: () {
                                       //在这里不能通过此方式获取FormState，context不对
                                       //print(Form.of(context));
