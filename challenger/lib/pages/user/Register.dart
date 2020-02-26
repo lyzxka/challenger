@@ -26,6 +26,10 @@ class RegisterState extends State<Register> {
   bool _getCode=false;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -86,10 +90,12 @@ class RegisterState extends State<Register> {
                                       child: !_getCode?Text("$_codeInfo"):CountDownWidget(
                                         onCountDownFinishCallBack: (value){
                                           if(value){
-                                            setState(() {
-                                              _codeInfo="重新获取验证码";
-                                              _getCode=false;
-                                            });
+                                            if(mounted){
+                                              setState(() {
+                                                _codeInfo="重新获取验证码";
+                                                _getCode=false;
+                                              });
+                                            }
                                           }
                                         },
                                         second: 60,
@@ -196,15 +202,18 @@ class RegisterState extends State<Register> {
                                       if ((formKey.currentState as FormState)
                                           .validate()) {
                                         //验证通过提交数据
-                                        Response response=await Dio().post(
-                                          "http://192.168.0.126:8080/challenger-api/app/auth/register",
+                                        /*Response response=await Dio().post(
+                                          Constant.API_URL+"/app/auth/register",
                                           data:{
                                             "code": codeController.text,
                                             "password": pwdController.text,
                                             "phone": phoneController.text
                                           }
                                         );
-                                        print(response);
+                                        if(response.data['code']==0){
+                                          // 注册成功，自动登录  更新登录状态 关闭页面
+                                        }*/
+                                        Navigator.pop(context);
                                       }
                                     },
                                   ),

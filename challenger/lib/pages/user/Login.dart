@@ -1,5 +1,11 @@
+import 'dart:convert' as convert;
+
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/router.dart';
+import 'package:challenger/utils/FileUtils.dart';
+import 'package:challenger/utils/FileUtils.dart' as prefix0;
+import 'package:challenger/utils/Toast.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 /// author: zzxka
@@ -17,6 +23,17 @@ class LoginState extends State<Login> {
 
   // 显示密码控制
   bool _passwordVisible=false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FileUtils().readFile("user.ast").then((String data){
+      Map<String,dynamic> info=convert.jsonDecode(data);
+      if(null!=info['phone']){
+        phoneController.text=info['phone'];
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +96,7 @@ class LoginState extends State<Login> {
                                           });
                                       }),
                                 ),
-                                obscureText: _passwordVisible,
+                                obscureText: !_passwordVisible,
                                 validator: (v) {
                                   return v.trim().length > 5 ? null : "密码不能少于6位";
                                 }
@@ -99,7 +116,7 @@ class LoginState extends State<Login> {
                                     child: Text("登录",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
                                     color: Colors.blue,
                                     textColor: Colors.white,
-                                    onPressed: () {
+                                    onPressed: () async{
                                       //在这里不能通过此方式获取FormState，context不对
                                       //print(Form.of(context));
                                       // 通过_formKey.currentState 获取FormState后，
@@ -107,6 +124,22 @@ class LoginState extends State<Login> {
                                       // 通过后再提交数据。
                                       if ((formKey.currentState as FormState).validate()) {
                                         //验证通过提交数据
+                                        Response response=await Dio().post(
+                                            Constant.API_URL+"/app/auth/login",
+                                            data: {
+                                              "phone": phoneController.text,
+                                              "password": pwdController.text
+                                            }
+                                        );
+                                        if(response.data['code']==0){
+                                          // 登陆成功 存储token 更新登录状态 页面关闭
+                                          // 清理文件内容为空
+                                          FileUtils().writeFile("user.ast" ,"");
+                                          FileUtils().writeFile("user.ast", '{\"phone\":\"'+phoneController.text+'\",\"token\":\"'+response.data['token']+'\"}');
+
+                                        }else{
+                                          Toast.toast(context,msg: response.data['msg']);
+                                        }
                                       }
                                     },
                                   ),

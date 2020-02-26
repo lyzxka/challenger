@@ -30,7 +30,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   # json生成对象实体类
   json_model: ^0.0.2
-
+  # 文件操作 本地路径
+  path_provider: ^0.4.1
   flutter_webview_plugin: 0.3.0+2
   webview_flutter: 0.3.3+1
 
