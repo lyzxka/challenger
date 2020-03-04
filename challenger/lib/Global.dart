@@ -1,0 +1,70 @@
+import 'dart:io';
+
+import 'package:challenger/constant/Constant.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+/// author: zzxka
+/// date: 2020/2/27
+/// description: 全局共享变量
+class Global extends ChangeNotifier{
+  // 当前比赛选定顶部当行栏项
+  static num matchCurrentTopTap=0;
+
+  static SharedPreferences storage;
+  static bool isLogin=false;
+  static String token;
+  static String phone;
+  static String userIcon;
+  static String email;
+  static String name;
+  //初始化全局信息，会在APP启动时执行
+  static Future init() async {
+    storage = await SharedPreferences.getInstance();
+    loginInit();
+  }
+
+  static update() async{
+    token= storage.getString("token");
+    isLogin=null==token?false:true;
+    phone=storage.getString("phone");
+  }
+
+  static void loginInit(){
+    token= storage.getString("token");
+    phone= storage.getString("phone");
+    isLogin=null==token?false:true;
+    if(isLogin){
+        getUserInfo();
+    }
+  }
+  static void loginCancel(){
+    storage.remove("token");
+    isLogin=false;
+  }
+  static void cancel(){
+    loginCancel();
+  }
+  @override
+  void notifyListeners() {
+    super.notifyListeners();
+  }
+
+  static getUserInfo() async{
+    var dio=Dio(BaseOptions(baseUrl:Constant.API_URL,headers: {HttpHeaders.authorizationHeader: token,}));
+    Response response=await dio.post("/app/auth/userInfo");
+    if(response.data['code']==401){
+      loginCancel();
+    }else if(response.data['code']==0){
+      var info=response.data['info'];
+      email=info['email'];
+      userIcon=info['icon'];
+      name=info['name'];
+//      print(info.toString());
+    }else{
+      print(response.data['msg']);
+    }
+  }
+
+}

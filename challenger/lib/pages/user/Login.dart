@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'dart:convert' as convert;
 
+import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/router.dart';
 import 'package:challenger/utils/FileUtils.dart';
-import 'package:challenger/utils/FileUtils.dart' as prefix0;
 import 'package:challenger/utils/Toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -20,19 +21,14 @@ class LoginState extends State<Login> {
   TextEditingController phoneController = new TextEditingController();
   TextEditingController pwdController = new TextEditingController();
   GlobalKey formKey = new GlobalKey<FormState>();
+  bool isLogin;
 
   // 显示密码控制
   bool _passwordVisible=false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    FileUtils().readFile("user.ast").then((String data){
-      Map<String,dynamic> info=convert.jsonDecode(data);
-      if(null!=info['phone']){
-        phoneController.text=info['phone'];
-      }
-    });
+    phoneController.text=Global.phone;
   }
 
   @override
@@ -131,12 +127,15 @@ class LoginState extends State<Login> {
                                               "password": pwdController.text
                                             }
                                         );
+                                        print(response);
                                         if(response.data['code']==0){
                                           // 登陆成功 存储token 更新登录状态 页面关闭
-                                          // 清理文件内容为空
-                                          FileUtils().writeFile("user.ast" ,"");
-                                          FileUtils().writeFile("user.ast", '{\"phone\":\"'+phoneController.text+'\",\"token\":\"'+response.data['token']+'\"}');
-
+                                          Global.storage.setString("token", response.data['token']);
+                                          Global.storage.setString("phone", phoneController.text);
+                                          Global.storage.setBool("isLogin", true);
+                                          Global.update();
+                                          Toast.toast(context,msg:"登录成功");
+                                          Navigator.pop(context);
                                         }else{
                                           Toast.toast(context,msg: response.data['msg']);
                                         }

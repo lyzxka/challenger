@@ -1,8 +1,11 @@
-import 'dart:async';
+import 'package:challenger/Global.dart';
 import 'package:challenger/component/AdLabel.dart';
 import 'package:challenger/component/CountDownWidget.dart';
-import 'package:challenger/config/BaseConfig.dart';
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/model/MatchGlobal.dart';
+import 'package:challenger/pages/match/Match.dart';
+import 'package:challenger/pages/match/Match.dart' as prefix0;
+import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
 import 'package:flutter/material.dart';
 
 import 'AppIndex.dart';
@@ -27,14 +30,21 @@ class AdState extends State<Ad>{
   @override
   void initState() {
     super.initState();
+    //初始化全局变量
+    Global.init();
+    MatchGlobal().init();
   }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         // 控制child展示  true为不展示
         Offstage(
-          child: AppIndex(),
+          child:ChangeNotifierProvider<Global>(
+            data: Global(),
+            child:  AppIndex(),
+          ),
           offstage: showAd,
         ),
         Offstage(
@@ -58,7 +68,7 @@ class AdState extends State<Ad>{
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: CountDownWidget(
-                        second: 5,
+                          second: 5,
                           prefixText: "跳过",
                           onCountDownFinishCallBack: (bool value){
                             if(value){

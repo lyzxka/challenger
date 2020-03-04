@@ -1,15 +1,18 @@
+import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
-import 'package:challenger/router.dart';
+import 'package:challenger/pages/user/UserInfo.dart';
 import 'package:flutter/material.dart';
 
 /// author：zzxka
 /// date：2020-01-12 13:29
 /// description: 左侧抽屉
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   const MyDrawer({
     Key key,
   }) : super(key: key);
-
+  MyDrawerState createState()=>MyDrawerState();
+}
+class MyDrawerState extends State<MyDrawer>{
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -20,32 +23,36 @@ class MyDrawer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 38.0),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: ClipOval(
-                      child: Image.asset(
-                        Constant.ASSETS_IMG+"default_head_icon.jpg",
-                        width: 50,
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 38.0),
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ClipOval(
+                        child: Image.network(
+                          Global.userIcon,
+                          width: 50,height: 50,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    // 非文字区域可触发点击事件
-                    behavior: HitTestBehavior.opaque,
-                    onTap: ((){
-                      Router.pushNoParams(context, Router.login);
-                    }),
-                    child:Text(
-                      "zzxka",
+                    Text(
+                      Global.name,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
+              onTap: ((){
+//                Global.getUserInfo();
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context){
+                    return UserInfo();
+                  }
+                ));
+              }),
             ),
             Expanded(
               child: ListView(
@@ -70,10 +77,15 @@ class MyDrawer extends StatelessWidget {
                     leading: const Icon(Icons.history),
                     title: const Text('浏览记录'),
                   ),
-                  ListTile(
+                  /*ListTile(
                     leading: const Icon(Icons.settings),
-                    title: const Text('设置'),
-                  ),
+                    title: const Text('退出'),
+                    onTap: (){
+                      Global.loginCancel();
+                      Navigator.pop(context);
+
+                    },
+                  ),*/
                 ],
               ),
             ),
@@ -82,4 +94,5 @@ class MyDrawer extends StatelessWidget {
       ),
     );
   }
+
 }

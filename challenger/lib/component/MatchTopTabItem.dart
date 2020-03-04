@@ -26,27 +26,33 @@ class MatchTopTabItemState extends State<MatchTopTabItem> {
     super.initState();
   }
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+  @override
   Widget build(BuildContext context) {
-    int currentTopTab=ChangeNotifierProvider.of<MatchGlobal>(context).currentTopTab;
+    int currentTopTab=ChangeNotifierProvider.of<MatchGlobal>(context).currentCategoryId;
     return GestureDetector(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 12,horizontal: 8),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
-            color: currentTopTab==widget.id?Colors.blue:Color.fromRGBO(240, 239, 239,1),
+            color: ChangeNotifierProvider.of<MatchGlobal>(context).currentCategoryId==widget.id?Colors.blue:Color.fromRGBO(240, 239, 239,1),
           ),
           constraints: BoxConstraints.tightFor(width: 50,height: 34),
           alignment: AlignmentDirectional.center,
-          child: Text(widget.title,style: TextStyle(color: currentTopTab==widget.id?Colors.white:Colors.grey),),
+          child: Text(widget.title,style: TextStyle(color: ChangeNotifierProvider.of<MatchGlobal>(context).currentCategoryId==widget.id?Colors.white:Colors.grey),),
         ),
       ),
       onTap: ((){
         setState(() {
           currentTopTab=widget.id;
         });
-        ChangeNotifierProvider.of<MatchGlobal>(context).setCurrentTopTab(widget.id);
+        ChangeNotifierProvider.of<MatchGlobal>(context).currentCategoryId=widget.id;
         print("导航标题被点击了${widget.id}，当前$currentTopTab");
+//        MatchGlobal.update(widget.id, 1);
+        ChangeNotifierProvider.of<MatchGlobal>(context).getList(widget.id,1);
       }),
     );
   }

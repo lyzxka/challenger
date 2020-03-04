@@ -10,20 +10,20 @@ class TopTab extends StatefulWidget {
 
 class TopTabState extends State<TopTab> {
 
-  List<String> titleNames=["全站","科学","数码","体育","娱乐","时尚","影视","IT","美术"];
-  List<Widget> titles;
-  ScrollController controller;
-
-  int currentTopTab=0;
+  static List<String> titleNames=["全站","科学","数码","体育","娱乐","时尚","影视","IT","美术"];
+  List<Widget> titles=titleNames.asMap().keys.map((index)=>MatchTopTabItem(id: index,title: titleNames[index])).toList();
+  ScrollController controller=new ScrollController(keepScrollOffset: true);
 
   @override
   void initState() {
     super.initState();
-    titles=titleNames.asMap().keys.map((index)=>MatchTopTabItem(id: index,title: titleNames[index])).toList();
-    controller=new ScrollController();
-    // 标题点击事件
-    controller.addListener((){
-    });
+    print("sakjhdkjsah");
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    print("asdiuoasiu");
   }
   @override
   Widget build(BuildContext context) {

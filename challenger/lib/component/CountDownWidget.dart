@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:challenger/config/BaseConfig.dart';
 import 'package:flutter/material.dart';
 
 /// author: zzxka
@@ -39,13 +37,15 @@ class _CountDownWidgetState extends State<CountDownWidget> {
   Widget build(BuildContext context) {
     return Text(
       '$prefixText$_seconds$suffixText',
-      style: BaseConfig.baseTestStyle,
+      style: TextStyle(color: Colors.grey,fontSize: 16,decoration: TextDecoration.none),
     );
   }
 
   /// 启动倒计时的计时器。
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      // 更新视图
+      setState(() {});
       if (_seconds <= 1) {
         widget.onCountDownFinishCallBack(true);
         _cancelTimer();

@@ -1,8 +1,10 @@
+import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/group/SearchFriend.dart';
 import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
 import 'package:challenger/pages/match/Match.dart' as match;
+import 'package:challenger/router.dart';
 import 'package:flutter/material.dart';
 
 import 'knowledge/Knowledge.dart';
@@ -31,6 +33,12 @@ class AppIndexState extends State<AppIndex>{
       BottomNavigationBarItem(title:Text("知识"),icon: Icon(Icons.book)),
     ];
   }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    print("change 1");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +54,14 @@ class AppIndexState extends State<AppIndex>{
         leading: Listener(
           child: Container(
             alignment: AlignmentDirectional.center,
-            child:ClipOval(
-              child: Image.asset(Constant.ASSETS_IMG+"default_head_icon.jpg",width: 30),
+            child:GestureDetector(
+              child: Global.isLogin? ClipOval(
+                child: Image.network(Global.userIcon,width: 30,height: 30,fit: BoxFit.fill,),
+                ):Text("未登录",style: TextStyle(color: Colors.grey),
+              ),
             ),
           ),
-          onPointerDown: (PointerDownEvent event)=>_scaffoldKey.currentState.openDrawer(),
+          onPointerDown: (PointerDownEvent event)=>Global.isLogin?_scaffoldKey.currentState.openDrawer():Router.pushNoParams(context, Router.login),
         ),
       ),
       body: Stack(

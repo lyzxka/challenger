@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class MatchItem extends StatefulWidget {
   MatchItemState createState() => MatchItemState();
   String title;
-  int id;
+  num id;
   String content;
   String img;
-  String looks;
+  num looks;
 
   MatchItem({
     Key key,
@@ -71,7 +71,7 @@ class MatchItemState extends State<MatchItem> {
                         height: 70,
                         child:ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
-                          child: Image.asset(widget.img,
+                          child: Image.network(widget.img,
                             height: 70,
                             fit: BoxFit.fitWidth,
                           ),
@@ -85,7 +85,7 @@ class MatchItemState extends State<MatchItem> {
                         right: 40,
                         child: Row(
                           children: <Widget>[
-                            Text(widget.looks,style: TextStyle(
+                            Text(widget.looks.toString(),style: TextStyle(
                               color: Color.fromRGBO(196, 191, 191,1),
                               fontSize: 12,
                             ),),

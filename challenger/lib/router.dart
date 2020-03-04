@@ -1,3 +1,4 @@
+import 'package:challenger/pages/AppIndex.dart';
 import 'package:challenger/pages/user/Login.dart';
 import 'package:challenger/pages/user/PwdChange.dart';
 import 'package:challenger/pages/user/PwdReset.dart';
@@ -10,6 +11,7 @@ import 'component/web_view_page.dart';
 /// date: 2020/2/24
 /// description:  路由管理
 class Router {
+  static const index="app://";
   static const register="app://register";
   static const login="app://login";
   static const pwdReset="app://pwdRest";
@@ -20,6 +22,9 @@ class Router {
       return WebViewPage(url, params: params);
     } else {
       switch (url) {
+        case index:
+          return AppIndex();
+
         // 用户账户管理
         case login:
           return Login();

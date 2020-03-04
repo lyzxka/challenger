@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:challenger/pages/Ad.dart';
+import 'package:challenger/pages/AppIndex.dart';
+import 'package:challenger/router.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -23,6 +25,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         brightness: Brightness.light,
         primaryColor: Colors.white,
+        backgroundColor: Color.fromRGBO(0, 0, 0, 0.1),
+        primaryTextTheme: TextTheme(
+          body1: TextStyle(fontSize: 18,fontWeight: FontWeight.w400,),
+        ),
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
             title: TextStyle(color: Colors.black54,fontSize: 20,fontWeight:FontWeight.w600)

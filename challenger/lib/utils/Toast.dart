@@ -36,6 +36,8 @@ class Toast {
   static double _pdHorizontal;
   // 上下边距
   static double _pdVertical;
+  static Future done;
+
   static void toast(
       BuildContext context, {
         //显示的文本
