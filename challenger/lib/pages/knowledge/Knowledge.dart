@@ -54,7 +54,7 @@ class KnowledgeState extends State<Knowledge>{
                   KnowledgeItem(id:6,title:"姜华珍胖的不行不行的了",userName: "zzxka",theme: "Java",date:"2020-02-22 22:20:12"),
                   KnowledgeItem(id:7,title:"姜华珍胖的走不动路了，移动只能躺在地上滚动，",userName: "zzxka",theme: "大数据",date:"2020-02-22 22:20:12"),
                   KnowledgeItem(id:8,title:"姜华珍快要饿死了",userName: "zzxka",theme: "AI人工智能",date:"2020-02-22 22:20:12"),
-                  BottomLabel(),
+                  BottomLabel(text:"已经到底了"),
                 ],
               ),
             ),

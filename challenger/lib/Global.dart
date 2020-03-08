@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// date: 2020/2/27
 /// description: 全局共享变量
 class Global extends ChangeNotifier{
-  // 当前比赛选定顶部当行栏项
-  static num matchCurrentTopTap=0;
 
   static SharedPreferences storage;
   static bool isLogin=false;
@@ -19,6 +17,8 @@ class Global extends ChangeNotifier{
   static String userIcon;
   static String email;
   static String name;
+
+
   //初始化全局信息，会在APP启动时执行
   static Future init() async {
     storage = await SharedPreferences.getInstance();

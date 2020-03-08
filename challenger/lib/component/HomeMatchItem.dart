@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
 /// author：zzxka
@@ -37,7 +38,7 @@ class HomeMatchItemState extends State<HomeMatchItem>{
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(widget.title,style: TextStyle(fontSize: 16),),
-                          Text(widget.date,style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
+                          Text(formatDate(DateTime.parse(widget.date), [yyyy,"-",mm,"-",dd]),style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
                         ],
                       ),
                     ),

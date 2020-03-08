@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 /// date：2020-01-20 16:35
 /// description: 
 class BottomLabel extends StatelessWidget {
+  String text;
+  BottomLabel({Key key,@required this.text}):super(key:key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +20,7 @@ class BottomLabel extends StatelessWidget {
             ]),
       ),
       alignment: AlignmentDirectional.center,
-      child: Text("已经到底了",style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.3)),),
+      child: Text(text,style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.3)),),
     );
   }
 }

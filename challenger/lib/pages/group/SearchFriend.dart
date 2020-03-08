@@ -38,7 +38,7 @@ class SearchFriendState extends State<SearchFriend> {
                 SearchFriendsItem(id:1,userIcon: Constant.ASSETS_IMG+"default_head_icon.jpg",userName: "姜华珍大傻子",content: "齐鲁软件设计大赛组队啦，现缺一名开发人员，java优先",matchName: "齐鲁软件设计大赛",date: "2020-02-02",),
                 SearchFriendsItem(id:1,userIcon: Constant.ASSETS_IMG+"default_head_icon.jpg",userName: "姜华珍大傻子",content: "齐鲁软件设计大赛组队啦，现缺一名开发人员，java优先",matchName: "齐鲁软件设计大赛",date: "2020-02-02",),
                 SearchFriendsItem(id:1,userIcon: Constant.ASSETS_IMG+"default_head_icon.jpg",userName: "姜华珍大傻子",content: "齐鲁软件设计大赛组队啦，现缺一名开发人员，java优先",matchName: "齐鲁软件设计大赛",date: "2020-02-02",),
-                BottomLabel(),
+                BottomLabel(text:"已经到底了"),
               ],
             ),
           ),

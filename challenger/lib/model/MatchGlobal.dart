@@ -1,7 +1,9 @@
+import 'package:challenger/Global.dart';
 import 'package:challenger/component/BottomLabel.dart';
 import 'package:challenger/component/MatchItem.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/http/MatchHttp.dart';
+import 'package:challenger/utils/Toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -55,13 +57,13 @@ class MatchGlobal extends ChangeNotifier {
         }
         print("更新后" + data.length.toString());
         if (newData.length < 10) {
-          data.add(BottomLabel());
+          data.add(BottomLabel(text: "已经到底了",));
         }
         currentPage = page;
         currentCategoryId = categoryId;
         print("当前页$currentPage===$currentCategoryId");
       } else {
-        // TODO 后期可以加一下获取数据为空的提示
+        data.add(BottomLabel(text: "当前没有数据",));
 //        list=[];
       }
     } else {}

@@ -32,12 +32,15 @@ dependencies:
   json_model: ^0.0.2
   # 文件操作 本地路径
   path_provider: ^0.4.1
+  #webView
   flutter_webview_plugin: 0.3.0+2
   webview_flutter: 0.3.3+1
   # 本地存储
   shared_preferences: ^0.5.1
   # 图片
   image_picker: ^0.5.0
+  # 时间格式化
+  date_format: ^1.0.8
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:challenger/Global.dart';
+import 'package:challenger/Global.dart' as prefix1;
 import 'package:challenger/component/AdLabel.dart';
 import 'package:challenger/component/CountDownWidget.dart';
 import 'package:challenger/constant/Constant.dart';

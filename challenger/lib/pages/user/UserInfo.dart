@@ -1,5 +1,6 @@
 import 'package:challenger/Global.dart';
 import 'package:challenger/pages/user/ChangeUserInfo.dart';
+import 'package:challenger/utils/Toast.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,6 +15,13 @@ class UserInfoState extends State<UserInfo> {
   var img;
   String name=Global.name==null?"未命名":Global.name;
   String email=Global.email==null?"未绑定":Global.email;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

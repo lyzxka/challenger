@@ -1,4 +1,5 @@
 import 'package:challenger/constant/Constant.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
 /// author：zzxka
@@ -38,7 +39,7 @@ class SearchFriendsItem extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(right: 10),
                       child: ClipOval(
-                        child: Image.asset(userIcon,width: 40,),
+                        child: Image.network(userIcon,width: 40,height: 40,fit: BoxFit.fill,),
                       ),
                     ),
                     Container(
@@ -62,7 +63,7 @@ class SearchFriendsItem extends StatelessWidget {
                             Expanded(
                               child: Text(matchName,style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
                             ),
-                            Text(date.toString(),style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
+                            Text(formatDate(DateTime.parse(date), [yyyy,"-",mm,"-",dd]),style: TextStyle(color: Color.fromRGBO(0, 0, 0, .5)),),
                           ],
                         ),
                       )
