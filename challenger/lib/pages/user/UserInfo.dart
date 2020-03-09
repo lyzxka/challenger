@@ -1,6 +1,9 @@
 import 'package:challenger/Global.dart';
+import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/user/ChangeUserInfo.dart';
+import 'package:challenger/utils/DioUtil.dart';
 import 'package:challenger/utils/Toast.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -53,7 +56,7 @@ class UserInfoState extends State<UserInfo> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(4),
                               child: null==img
-                                  ?Image.network("http://img.leixj.com/bdce9f75-8f72-4400-a437-71cb3b08b1f7.jpg",fit: BoxFit.fill)
+                                  ?Image.network(Global.userIcon,fit: BoxFit.fill)
                                   :Image.file( img,fit: BoxFit.fill),
                             ),
                           ),
@@ -63,12 +66,50 @@ class UserInfoState extends State<UserInfo> {
                     onTap: () async {
                       // 相册
                       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+                      FormData formData = FormData.fromMap({
+                        "file": await MultipartFile.fromFile(
+                          image.path,                                //图片路径
+                          filename: "userIcon.jpg",            //图片名称
+                        )
+                      });
+                      Map<String, dynamic> map ={'fileType':"KTP_IMG"};
+                      Response response = await Dio().post(          //上传结果
+                        Constant.API_URL+"/app/base/upload",
+                        data: formData,
+                        queryParameters: map,
+                        onSendProgress: (int count, int total) {
+                          print('-----------${count / total}-------------');  //上传进度
+                        },
+                      );
+                      if(response.data['code']==0){
+                        DioUtil.getInstance(Global.token).dio.post(
+                            "/app/user/changeInfo",
+                            data: {
+                              "photo":response.data['url']
+                            }
+                        ).then((res){
+                          print(res);
+                          if(res.data['code']==0){
+                            Global.getUserInfo();
+                            img=image;
+                            Toast.toast(context,msg: "修改头像成功");
+                          }else if(res.data['code']==401){
+                            Global.loginCancel();
+                          }else{
+                            img=null;
+                            Toast.toast(context,msg: res.data['msg']);
+                          }
+                          setState(() {});
+                        });
+                      }else{
+                        img=null;
+                        setState(() {});
+                        Toast.toast(context,msg:response.data['msg']);
+                      }
+                      print(response);
                       // 拍照
 //                      var image = await ImagePicker.pickImage(source: ImageSource.camera);
-                      print(image);
-                      setState(() {
-                        img=image;
-                      });
+//                      print(image);
                     },
                   ),
                   Divider(color: Colors.grey,height: 2,),
