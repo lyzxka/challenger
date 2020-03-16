@@ -29,6 +29,9 @@ class Global extends ChangeNotifier{
     token= storage.getString("token");
     isLogin=null==token?false:true;
     phone=storage.getString("phone");
+    if(isLogin){
+      getUserInfo();
+    }
   }
 
   static void loginInit(){
@@ -53,7 +56,7 @@ class Global extends ChangeNotifier{
 
   static getUserInfo() async{
     var dio=Dio(BaseOptions(baseUrl:Constant.API_URL,headers: {HttpHeaders.authorizationHeader: token,}));
-    Response response=await dio.post("/app/auth/userInfo");
+    Response response=await dio.post("/app/user/userInfo");
     if(response.data['code']==401){
       loginCancel();
     }else if(response.data['code']==0){

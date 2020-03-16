@@ -1,10 +1,12 @@
 import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/model/SearchFriendGlobal.dart';
 import 'package:challenger/pages/group/SearchFriend.dart';
 import 'package:challenger/pages/home/Home.dart';
 import 'package:challenger/pages/drawer/MyDrawer.dart';
 import 'package:challenger/pages/match/Match.dart' as match;
 import 'package:challenger/router.dart';
+import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
 import 'package:flutter/material.dart';
 
 import 'knowledge/Knowledge.dart';
@@ -23,13 +25,16 @@ class AppIndexState extends State<AppIndex>{
     pages=[
       Home(),
       match.Match(),
-      SearchFriend(),
+      ChangeNotifierProvider<SearchFriendGlobal>(
+        data: SearchFriendGlobal(),
+        child: SearchFriend(),
+      ),
       Knowledge(),
     ];
     barItems=[
       BottomNavigationBarItem(title:Text("首页"),icon: Icon(Icons.home)),
       BottomNavigationBarItem(title:Text("比赛"),icon: Icon(Icons.subscriptions)),
-      BottomNavigationBarItem(title:Text("志友"),icon: Icon(Icons.people_outline)),
+      BottomNavigationBarItem(title:GestureDetector(child: Text("志友"),onTap: (){print("123123");},),icon: Icon(Icons.people_outline)),
       BottomNavigationBarItem(title:Text("知识"),icon: Icon(Icons.book)),
     ];
   }
@@ -37,7 +42,6 @@ class AppIndexState extends State<AppIndex>{
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    print("change 1");
   }
 
   @override
@@ -57,7 +61,7 @@ class AppIndexState extends State<AppIndex>{
             child:GestureDetector(
               child: Global.isLogin? ClipOval(
                 child: Image.network(Global.userIcon,width: 30,height: 30,fit: BoxFit.fill,),
-                ):Text("未登录",style: TextStyle(color: Colors.grey),
+                ):Text("未登录",style: TextStyle(color: Colors.grey,fontSize: 14),
               ),
             ),
           ),

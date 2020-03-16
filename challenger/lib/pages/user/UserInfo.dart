@@ -198,6 +198,36 @@ class UserInfoState extends State<UserInfo> {
                 ],
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(left: 15,),
+              margin: EdgeInsets.only(top: 10,),
+              color: Colors.white,
+              child: GestureDetector(
+                child: Container(
+                  constraints: BoxConstraints.tightFor(height: 50),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Expanded(
+                        child: Text("退出",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right:20),
+                        child: Icon(Icons.exit_to_app,size: 25,color: Colors.grey,),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: (){
+                  // 退出
+                  Global.loginCancel();
+                  Navigator.pop(context);
+                  // 关闭drawer
+                  Navigator.pop(context);
+                },
+              ),
+            )
           ],
         ),
       ),

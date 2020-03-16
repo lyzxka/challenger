@@ -132,7 +132,6 @@ class LoginState extends State<Login> {
                                           // 登陆成功 存储token 更新登录状态 页面关闭
                                           Global.storage.setString("token", response.data['token']);
                                           Global.storage.setString("phone", phoneController.text);
-                                          Global.storage.setBool("isLogin", true);
                                           Global.update();
                                           Toast.toast(context,msg:"登录成功");
                                           Navigator.pop(context);

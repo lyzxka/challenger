@@ -53,9 +53,11 @@ class SearchFriendsItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(content,style: TextStyle(fontSize: 16,),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                      Expanded(
+                        child: Text(content,style: TextStyle(fontSize: 16,),maxLines: 2,overflow: TextOverflow.ellipsis,),
+                      ),
                       Padding(
-                        padding: EdgeInsets.only(top: 4,left: 10),
+                        padding: EdgeInsets.only(top: 4,right: 10,bottom: 5),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -70,7 +72,7 @@ class SearchFriendsItem extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(Icons.chevron_right,color: Color.fromRGBO(0, 0, 0, .5),size: 20,)
+//                Icon(Icons.chevron_right,color: Color.fromRGBO(0, 0, 0, .5),size: 20,)
               ],
             ),
           ),

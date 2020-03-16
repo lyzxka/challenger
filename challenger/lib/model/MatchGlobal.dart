@@ -16,7 +16,6 @@ class MatchGlobal extends ChangeNotifier {
   num currentCategoryId=0;
   int currentPage=1;
   bool updating=false;
-  bool isInit=false;
 
   getList (num categoryId,int page) async {
     if (updating) {
@@ -63,8 +62,9 @@ class MatchGlobal extends ChangeNotifier {
         currentCategoryId = categoryId;
         print("当前页$currentPage===$currentCategoryId");
       } else {
-        data.add(BottomLabel(text: "当前没有数据",));
-//        list=[];
+        if(page==1){
+          data.add(BottomLabel(text: "当前没有数据",));
+        }
       }
     } else {}
     updating = false;

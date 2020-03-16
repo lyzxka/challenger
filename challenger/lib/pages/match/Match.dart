@@ -101,9 +101,9 @@ class MatchState extends State<Match> {
             img: item['imgUrl'],
             looks: item['views']));
       });
-      setState(() {
-
-      });
     }
+    setState(() {
+
+    });
   }
 }
