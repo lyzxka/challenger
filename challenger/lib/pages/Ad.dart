@@ -32,8 +32,7 @@ class AdState extends State<Ad>{
   void initState() {
     super.initState();
     //初始化全局变量
-    Global.init();
-    MatchGlobal().init();
+    Global.init(context);
   }
 
   @override

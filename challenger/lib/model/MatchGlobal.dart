@@ -73,13 +73,6 @@ class MatchGlobal extends ChangeNotifier {
 
   List<Widget> initList=[];
 
-  init(){
-    currentCategoryId=0;
-    currentPage=1;
-    updating=false;
-    getList(0, 1);
-    notifyListeners();
-  }
   /*static initData(){
     MatchHttp.getList(0,1);
   }*/

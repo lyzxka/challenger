@@ -6,6 +6,7 @@ import 'package:challenger/component/MatchItem.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/model/MatchGlobal.dart';
 import 'package:challenger/pages/match/TopTab.dart';
+import 'package:challenger/utils/Toast.dart';
 import 'package:challenger/utils/baseUtils.dart';
 import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
 import 'package:dio/dio.dart';
@@ -101,9 +102,11 @@ class MatchState extends State<Match> {
             img: item['imgUrl'],
             looks: item['views']));
       });
-    }
-    setState(() {
+      setState(() {
 
-    });
+      });
+    }else{
+      Toast.toast(context,msg: response.data['msg']);
+    }
   }
 }

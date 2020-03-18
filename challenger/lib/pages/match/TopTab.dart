@@ -17,13 +17,11 @@ class TopTabState extends State<TopTab> {
   @override
   void initState() {
     super.initState();
-    print("sakjhdkjsah");
   }
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    print("asdiuoasiu");
   }
   @override
   Widget build(BuildContext context) {

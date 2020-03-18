@@ -3,8 +3,8 @@ import 'package:challenger/component/HomeMatchItem.dart';
 import 'package:challenger/component/SearchFriendsItem.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/home/Navigation.dart';
+import 'package:challenger/pages/match/Match.dart' as match;
 import 'package:challenger/utils/Toast.dart';
-import 'package:date_format/date_format.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -93,6 +93,15 @@ class HomeState extends State<Home> {
                                 Text("更多 >>",),
                               ],
                             ),
+                            onPointerDown: ((PointerDownEvent event){
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return Scaffold(
+                                  appBar:AppBar(
+                                  ),
+                                  body:match.Match(),
+                                );
+                              }));
+                            }),
                           ),
                         ],
                       ),

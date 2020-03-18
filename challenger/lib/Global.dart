@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/utils/Toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,15 +13,17 @@ class Global extends ChangeNotifier{
 
   static SharedPreferences storage;
   static bool isLogin=false;
-  static String token;
-  static String phone;
-  static String userIcon;
-  static String email;
-  static String name;
+  static String token="";
+  static String phone="";
+  static String userIcon="";
+  static String email="";
+  static String name="";
+  static BuildContext globalContext;
 
 
   //初始化全局信息，会在APP启动时执行
-  static Future init() async {
+  static Future init(BuildContext context) async {
+    globalContext=context;
     storage = await SharedPreferences.getInstance();
     loginInit();
   }
@@ -44,6 +47,7 @@ class Global extends ChangeNotifier{
   }
   static void loginCancel(){
     storage.remove("token");
+    storage.remove("userIcon");
     isLogin=false;
   }
   static void cancel(){
@@ -64,8 +68,10 @@ class Global extends ChangeNotifier{
       email=info['email'];
       userIcon=info['icon'];
       name=info['name'];
+//      storage.setString("userIcon", info['icon']);
 //      print(info.toString());
     }else{
+      Toast.toast(globalContext,msg:response.data['msg']);
       print(response.data['msg']);
     }
   }

@@ -90,11 +90,10 @@ class SearchFriendState extends State<SearchFriend> {
       }else{
         initList.add(BottomLabel(text:"当前没有数据"));
       }
+      setState(() {
+      });
     }else{
       Toast.toast(context,msg: data['msg']);
     }
-    setState(() {
-
-    });
   }
 }

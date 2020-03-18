@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// description: 
 class KnowledgeItem extends StatelessWidget {
 
-  int id;
+  num id;
   String title;
   String date;
   String userName;

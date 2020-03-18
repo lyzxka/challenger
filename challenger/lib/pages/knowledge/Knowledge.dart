@@ -1,14 +1,29 @@
 import 'package:challenger/component/BottomLabel.dart';
 import 'package:challenger/component/KnowledgeItem.dart';
 import 'package:challenger/component/SearchTextFieldWidget.dart';
+import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/model/KnowledgeGlobal.dart';
+import 'package:challenger/utils/Toast.dart';
+import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class Knowledge extends StatefulWidget{
   KnowledgeState createState()=>KnowledgeState();
 }
 class KnowledgeState extends State<Knowledge>{
+
+  List<Widget> initList=[];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initData();
+  }
   @override
   Widget build(BuildContext context) {
+    var global=ChangeNotifierProvider.of<KnowledgeGlobal>(context);
     return Stack(
         children: <Widget>[
           Positioned(
@@ -20,14 +35,10 @@ class KnowledgeState extends State<Knowledge>{
                 hintText: '标题名称/用户名称/主题名称',
                 margin: const EdgeInsets.only(left: 15.0, right: 15.0),
                 onTab: () {
-                  print("123123");
                 },
                 onSubmitted: ((value){
-                  if(value==""){
-                    print("搜索内容为空");
-                    return ;
-                  }
-                  print("搜索内容："+value);
+                  global.text=value;
+                  global.getList(global.text, 1);
                 }),
               ),
             ),
@@ -39,28 +50,61 @@ class KnowledgeState extends State<Knowledge>{
               color: Colors.blue,
               onRefresh: (() async {
                 await Future<int>.delayed(Duration(seconds: 3),(){
-                  print("知识首页更新了");
+                  global.getList(global.text, 1);
                   return 1;
                 });
                 return null;
               }),
-              child: ListView(
-                children: <Widget>[
-                  KnowledgeItem(id:1,title:"姜华珍快要饿死了",userName: "zzxka",theme: "Flutter",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:2,title:"姜华珍胖的不行不行的了",userName: "zzxka",theme: "Java",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:3,title:"姜华珍胖的走不动路了，移动只能躺在地上滚动，",userName: "zzxka",theme: "大数据",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:4,title:"姜华珍快要饿死了",userName: "zzxka",theme: "AI人工智能",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:5,title:"姜华珍快要饿死了",userName: "zzxka",theme: "Flutter",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:6,title:"姜华珍胖的不行不行的了",userName: "zzxka",theme: "Java",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:7,title:"姜华珍胖的走不动路了，移动只能躺在地上滚动，",userName: "zzxka",theme: "大数据",date:"2020-02-22 22:20:12"),
-                  KnowledgeItem(id:8,title:"姜华珍快要饿死了",userName: "zzxka",theme: "AI人工智能",date:"2020-02-22 22:20:12"),
-                  BottomLabel(text:"已经到底了"),
-                ],
+              notificationPredicate: ((ScrollNotification notification){
+                double progress = notification.metrics.maxScrollExtent-notification.metrics.pixels;
+                if(notification.metrics.axisDirection==AxisDirection.down&&progress<10) {
+                  print("分页更新${global.currentPage+1}");
+                  if (progress <= 200) {
+                    global.getList(global.text, global.currentPage+1);
+                  }
+                }
+                return true;
+              }),
+              child: ListView.builder(
+                itemCount: global.data.isEmpty?initList.length:global.data.length,
+                itemBuilder: (context,position){
+                  return global.data.isEmpty?initList[position]:global.data[position];
+                },
               ),
             ),
           ),
         ]
     );
   }
+  initData() async{
+    Response response=await Dio().post(
+        Constant.API_URL+"/app/knowledge/list",
+        data: {
+          "page":1,
+          "limit":10
+        }
+    );
+    if(response.data['code']==0){
+      var list=response.data['data'];
+      if(list.isNotEmpty){
+        list.forEach((item){
+          initList.add(KnowledgeItem(
+            id: item['id'],
+            title: item['title'],
+            userName: item['userName'],
+            theme: item['categoryName'],
+            date: item['createDate'],
+          ));
+        });
+      }else{
+        initList.add(BottomLabel(text:"暂无数据"));
+      }
 
+      setState(() {
+
+      });
+    }else{
+      Toast.toast(context,msg: response.data['msg']);
+    }
+  }
 }

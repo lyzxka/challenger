@@ -1,5 +1,6 @@
 import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/model/KnowledgeGlobal.dart';
 import 'package:challenger/model/SearchFriendGlobal.dart';
 import 'package:challenger/pages/group/SearchFriend.dart';
 import 'package:challenger/pages/home/Home.dart';
@@ -29,7 +30,10 @@ class AppIndexState extends State<AppIndex>{
         data: SearchFriendGlobal(),
         child: SearchFriend(),
       ),
-      Knowledge(),
+      ChangeNotifierProvider<KnowledgeGlobal>(
+        data: KnowledgeGlobal(),
+        child: Knowledge(),
+      ),
     ];
     barItems=[
       BottomNavigationBarItem(title:Text("首页"),icon: Icon(Icons.home)),
