@@ -1,5 +1,7 @@
+import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/pages/group/SearchFriendDetail.dart';
+import 'package:challenger/utils/Toast.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +30,10 @@ class SearchFriendsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ((){
+        if(!Global.isLogin){
+          Toast.toast(context,msg:"请先登录");
+          return null;
+        }
         return Navigator.push(context,
             MaterialPageRoute(builder: (context) {
               return Scaffold(

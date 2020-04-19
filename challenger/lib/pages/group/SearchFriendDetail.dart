@@ -1,3 +1,4 @@
+import 'package:challenger/Global.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/utils/DioUtil.dart';
 import 'package:challenger/utils/Toast.dart';
@@ -16,7 +17,7 @@ class SearchFriendDetail extends StatefulWidget {
 class SearchFriendDetailState extends State<SearchFriendDetail> {
   TextEditingController questionController=new TextEditingController();
 
-  bool signUp=false;
+  String signUpStatusText="";
   bool onFocus=false;
   bool master=false;
 
@@ -26,6 +27,7 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
   String matchName="";
   String userName="";
   String userIcon="";
+  String signUpStatus="";
   List signUpList=[];
 
   @override
@@ -73,13 +75,10 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
          bottom: 20,height: 60,
          right: 10,width: 60,
          child: FloatingActionButton(
-           backgroundColor: signUp?Colors.white:Colors.blue,
-           child: Text(signUp?"取消":"报名",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: signUp?Colors.grey:Colors.white),),
+           backgroundColor: Colors.blue,
+           child: Text(signUpStatusText,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400,color: Colors.white),),
            onPressed: ((){
-             Toast.toast(context,msg:signUp?"取消报名成功":"报名成功");
-             setState(() {
-               signUp=!signUp;
-             });
+             signUpOrCancel();
            }),
          ),
        )
@@ -88,7 +87,7 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
   }
 
   initDate() async{
-    Response response= await Dio().post(
+    Response response= await DioUtil.getInstance(Global.token).dio.post(
       Constant.API_URL+'/app/group/groupSearchDetail',
       data: {
         "objectId": widget.id
@@ -97,6 +96,7 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
     if(response.data['code']!=0){
       Toast.toast(context,msg: response.data['msg']);
     }
+    signUpList=[];
     Map<String,dynamic> groupSearch=response.data['groupSearch'];
     List<dynamic> groupList=response.data['groupList'];
     groupList.forEach((item){
@@ -114,8 +114,27 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
       userName=groupSearch['userName'];
       userIcon=groupSearch['userIcon'];
       date=groupSearch['createDate'];
+      signUpStatus=groupSearch['signUpStatus'];
+      signUpStatusText=parseStatus(signUpStatus);
     });
     print(response);
+  }
+
+  signUpOrCancel() async{
+    Response response= await DioUtil.getInstance(Global.token).dio.post(
+        Constant.API_URL+'/app/group/signUpOrCancelGroupSearch',
+        data: {
+          "objectId": widget.id
+        }
+    );
+    Toast.toast(context,msg: response.data['msg']);
+    if(response.data['code']==0){
+      setState(() {
+        signUpStatus=response.data['status'];
+        signUpStatusText=parseStatus(signUpStatus);
+      });
+      initDate();
+    }
   }
 
   groupSignUpItem(String userIcon,String userName,String date,String status){
@@ -230,7 +249,7 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
   // 报名状态
   String parseStatus(String status){
     if("1"==status){
-      return "报名中";
+      return "审核中";
     }
     if("2"==status){
       return "已拒绝";
@@ -241,7 +260,7 @@ class SearchFriendDetailState extends State<SearchFriendDetail> {
     if("4"==status){
       return "已取消";
     }
-    return "报名中";
+    return "未报名";
   }
 
 }
