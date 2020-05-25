@@ -3,6 +3,7 @@ import 'package:challenger/component/KnowledgeItem.dart';
 import 'package:challenger/component/SearchTextFieldWidget.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/model/KnowledgeGlobal.dart';
+import 'package:challenger/pages/knowledge/KnowledgeAdd.dart';
 import 'package:challenger/utils/Toast.dart';
 import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
 import 'package:dio/dio.dart';
@@ -71,6 +72,21 @@ class KnowledgeState extends State<Knowledge>{
                   return global.data.isEmpty?initList[position]:global.data[position];
                 },
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 10,height: 60,
+            right: 10,width: 60,
+            child: FloatingActionButton(
+              backgroundColor: Colors.blue,
+              child: Text("发布",style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300),),
+              onPressed: ((){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return KnowledgeAdd();
+                    }
+                ));
+              }),
             ),
           ),
         ]

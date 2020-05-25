@@ -41,6 +41,10 @@ dependencies:
   image_picker: ^0.5.0
   # 时间格式化
   date_format: ^1.0.8
+  #下拉框
+  gzx_dropdown_menu:
+    git:
+      url: https://github.com/GanZhiXiong/gzx_dropdown_menu.git
 
 dev_dependencies:
   flutter_test:

@@ -242,6 +242,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  gzx_dropdown_menu:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "7dd7d414b902594baf5bc8c594d74d7eb243c9a7"
+      url: "https://github.com/GanZhiXiong/gzx_dropdown_menu.git"
+    source: git
+    version: "2.0.0+1"
   html:
     dependency: transitive
     description:
