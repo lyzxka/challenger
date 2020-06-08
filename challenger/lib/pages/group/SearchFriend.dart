@@ -77,6 +77,7 @@ class SearchFriendState extends State<SearchFriend> {
     var data=response.data;
     if(data['code']==0){
       var list=data['data'];
+      print(response);
       if(list.isNotEmpty){
         list.forEach((item){
           initList.add(SearchFriendsItem(

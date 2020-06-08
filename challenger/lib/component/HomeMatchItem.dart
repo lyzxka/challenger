@@ -1,3 +1,4 @@
+import 'package:challenger/pages/match/MatchDetail.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 /// date：2020-01-17 16:26
 /// description: 
 class HomeMatchItem extends StatefulWidget {
+
   HomeMatchItemState createState()=>HomeMatchItemState();
   num itemId;
   String title;
@@ -23,7 +25,8 @@ class HomeMatchItemState extends State<HomeMatchItem>{
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
+    return GestureDetector(
+        behavior: HitTestBehavior.translucent,
         child: Container(
           height: 60,
           padding: EdgeInsets.only(top: 8),
@@ -50,8 +53,16 @@ class HomeMatchItemState extends State<HomeMatchItem>{
             ],
           ),
         ),
-        onPointerDown: (PointerDownEvent event){
+        onTap: (){
           print("跳转比赛详情页面：${widget.itemId}");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+                return Scaffold(
+                  appBar: new AppBar(),
+                  body: MatchDetail(id:widget.itemId),
+                );
+              })
+          );
         }
     );
   }

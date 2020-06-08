@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:challenger/constant/Constant.dart';
+import 'package:challenger/utils/DioUtil.dart';
 import 'package:challenger/utils/Toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'component/MatchTopTabItem.dart';
 
 /// author: zzxka
 /// date: 2020/2/27
@@ -19,6 +22,7 @@ class Global extends ChangeNotifier{
   static String email="";
   static String name="";
   static BuildContext globalContext;
+  static List categoryList=[];
 
 
   //初始化全局信息，会在APP启动时执行
@@ -26,6 +30,7 @@ class Global extends ChangeNotifier{
     globalContext=context;
     storage = await SharedPreferences.getInstance();
     loginInit();
+    initCategoryList();
   }
 
   static update() async{
@@ -76,4 +81,18 @@ class Global extends ChangeNotifier{
     }
   }
 
+  static initCategoryList(){
+    DioUtil.getInstance(Global.token).dio.post(
+        "/app/base/categoryList",
+        data: {
+        }
+    ).then((response){
+      print(response);
+      if(response.data['code']==0){
+        categoryList=response.data['data'];
+      }else{
+        Toast.toast(globalContext,msg:"初始化比赛分类菜单失败");
+      }
+    });
+  }
 }

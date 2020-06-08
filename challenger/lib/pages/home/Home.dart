@@ -179,6 +179,7 @@ class HomeState extends State<Home> {
       }
       // 志友招募列表
       this.groupSearchList=[];
+      print(response.data['groupSearchList']);
       var groupSearchList=response.data['groupSearchList'];
       if(!groupSearchList.isEmpty){
         groupSearchList.forEach((item){
@@ -187,7 +188,7 @@ class HomeState extends State<Home> {
                 id:item['id'],
                 userIcon: item['userIcon'],
                 userName: item['userName'],
-                content: item['content'],
+                content: item['title'],
                 matchName: item['matchName'],
                 date: item['createDate'],
               )

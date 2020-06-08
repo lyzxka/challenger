@@ -1,3 +1,4 @@
+import 'package:challenger/pages/match/MatchDetail.dart';
 import 'package:flutter/material.dart';
 
 /// author：zzxka
@@ -111,7 +112,14 @@ class MatchItemState extends State<MatchItem> {
           ),
         ),
       onTap: ((){
-        print("点击组件${widget.id}");
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) {
+            return Scaffold(
+              appBar: new AppBar(),
+              body: MatchDetail(id:widget.id),
+            );
+          })
+        );
       }),
     );
   }

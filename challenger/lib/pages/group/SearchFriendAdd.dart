@@ -4,24 +4,25 @@ import 'package:challenger/utils/Toast.dart';
 import 'package:flutter/material.dart';
 import 'package:gzx_dropdown_menu/gzx_dropdown_menu.dart';
 
-class KnowledgeAdd extends StatefulWidget{
-  KnowledgeAddState createState()=>KnowledgeAddState();
+class SearchFriendAdd extends StatefulWidget{
+  SearchFriendAddState createState()=>SearchFriendAddState();
+  num id;
+  SearchFriendAdd({Key key,this.id}):super(key:key);
 }
 
-class KnowledgeAddState extends State<KnowledgeAdd>{
+class SearchFriendAddState extends State<SearchFriendAdd>{
 
   GlobalKey formKey = new GlobalKey<FormState>();
   TextEditingController titleController=new TextEditingController();
+  TextEditingController groupNameController=new TextEditingController();
+  TextEditingController groupNumController=new TextEditingController();
   TextEditingController contentController=new TextEditingController();
   int type=0;
-  GZXDropdownMenuController _gzxDropdownMenuController=new GZXDropdownMenuController();
-  List<DropdownMenuItem> categoryList=[DropdownMenuItem(value: 0,child: Text("请选择门类",style: InputDecorationTheme().hintStyle,),),];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    initData();
   }
 
   @override
@@ -43,16 +44,18 @@ class KnowledgeAddState extends State<KnowledgeAdd>{
                 ),
                 child: Text("提交",style: TextStyle(color: Colors.white,fontSize: 16),),
               ),
-              onTap: () async{
+              onTap: ()  {
                 if(!(formKey.currentState as FormState).validate()){
                   return ;
                 }
                 DioUtil.getInstance(Global.token).dio.post(
-                    "/app/knowledge/add",
+                    "/app/group/groupCreate",
                     data: {
                       "title":titleController.text,
                       "content":contentController.text,
-                      "categoryId":"1"
+                      "groupName":groupNameController.text,
+                      "userNum":groupNumController.text,
+                      "matchId":widget.id,
                     }
                 ).then((response){
                   print(response);
@@ -91,19 +94,29 @@ class KnowledgeAddState extends State<KnowledgeAdd>{
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 20),
-                child: DropdownButtonFormField(
-                  items: categoryList,
-                  onChanged: (selectValue){//选中后的回调
-                    setState(() {
-                      type = selectValue;
-                    });
-                  },
-                  value: type,
+                padding: EdgeInsets.only(top: 10),
+                child: TextFormField(
+                  controller: groupNameController,
+                  decoration: InputDecoration(
+                    hintText: "请输入队名",
+                  ),
                   validator: ((v){
-                    return v==0?"请选择门类":null;
+                    return v.trim().length==0?"队名不能为空":null;
                   }),
-                )
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: TextFormField(
+                  controller: groupNumController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "请输入招募人数",
+                  ),
+                  validator: ((v){
+                    return v.trim().length==0?"招募人数不能为空":null;
+                  }),
+                ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 20),
@@ -126,13 +139,6 @@ class KnowledgeAddState extends State<KnowledgeAdd>{
     );
   }
 
-  void initData(){
-    Global.categoryList.forEach((item){
-      categoryList.add(DropdownMenuItem(value: item['id'],child: Text(item['categoryName'])));
-    });
-    setState(() {
-    });
-  }
 
 
 }

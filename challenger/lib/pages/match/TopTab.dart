@@ -1,5 +1,8 @@
 import 'package:challenger/component/MatchTopTabItem.dart';
+import 'package:challenger/utils/DioUtil.dart';
 import 'package:flutter/material.dart';
+
+import '../../Global.dart';
 
 /// author：zzxka
 /// date：2020-01-21 9:35
@@ -10,13 +13,14 @@ class TopTab extends StatefulWidget {
 
 class TopTabState extends State<TopTab> {
 
-  static List<String> titleNames=["全站","科学","数码","体育","娱乐","时尚","影视","IT","美术"];
+  static List<String> titleNames=["全站","Flutter","JAVA","HTML"];
   List<Widget> titles=titleNames.asMap().keys.map((index)=>MatchTopTabItem(id: index,title: titleNames[index])).toList();
   ScrollController controller=new ScrollController(keepScrollOffset: true);
 
   @override
   void initState() {
     super.initState();
+    initData();
   }
   @override
   void didChangeDependencies() {
@@ -67,5 +71,12 @@ class TopTabState extends State<TopTab> {
           ),
         ]
     );
+  }
+  initData(){
+    Global.categoryList.forEach((item){
+      titles.add(DropdownMenuItem(value: item['id'],child: Text(item['categoryName'])));
+    });
+    setState(() {
+    });
   }
 }

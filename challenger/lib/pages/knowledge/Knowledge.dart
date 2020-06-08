@@ -1,9 +1,11 @@
+import 'package:challenger/Global.dart';
 import 'package:challenger/component/BottomLabel.dart';
 import 'package:challenger/component/KnowledgeItem.dart';
 import 'package:challenger/component/SearchTextFieldWidget.dart';
 import 'package:challenger/constant/Constant.dart';
 import 'package:challenger/model/KnowledgeGlobal.dart';
 import 'package:challenger/pages/knowledge/KnowledgeAdd.dart';
+import 'package:challenger/pages/user/Login.dart';
 import 'package:challenger/utils/Toast.dart';
 import 'package:challenger/utils/provider/ChangeNotifierProvider.dart';
 import 'package:dio/dio.dart';
@@ -81,11 +83,22 @@ class KnowledgeState extends State<Knowledge>{
               backgroundColor: Colors.blue,
               child: Text("发布",style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w300),),
               onPressed: ((){
+                if(!Global.isLogin){
+                  Toast.toast(context,msg: "请先进行登录");
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context){
+                        return Login();
+                      }
+                  ));
+                  return ;
+                }
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context){
                       return KnowledgeAdd();
                     }
-                ));
+                )).then((value){
+                  global.getList(global.text, 1);
+                });
               }),
             ),
           ),
